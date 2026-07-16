@@ -1,11 +1,13 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import routeAuth from './app/routes/routes.auth.js';
-import routeUsuario from './app/routes/routes.usuario.js';
+import routeUsuario from './app/routes/routes.producto.js';
 
 dotenv.config();
 
-const app = express();
+const app = express(); 
+
+console.log("VERSION NUEVA DEL INDEX.JS"); 
 
 // Middleware
 app.use(express.json());
@@ -31,7 +33,7 @@ app.get('/test', (req, res) => {
 
 // Rutas de la API
 app.use('/api', routeAuth);
-app.use('/api', routeUsuario);
+app.use('/api', routeProducto);
 
 // Iniciar servidor
 app.listen(PORT, () => {
