@@ -1,15 +1,27 @@
 import express from 'express';
-import dotenv from 'dotenv';
-import routeProductos from './app/routes/routes.producto.js';
 import routeAuth from './app/routes/routes.auth.js';
+import routeUsuario from './app/routes/routes.usuario.js';
 
-dotenv.config();
 const app = express();
+
+// Middleware
 app.use(express.json());
 
-app.use('/api', routeAuth);
-app.use('/api', routeProductos);
+// Puerto (Railway usa process.env.PORT)
+const PORT = process.env.PORT || 3000;
 
-app.listen(process.env.PORT, () => {
- console.log(`Servidor en puerto ${process.env.PORT}`);
+// Rutas
+app.use('/api', routeAuth);
+app.use('/api', routeUsuario);
+
+// Ruta de prueba
+app.get('/', (req, res) => {
+    res.json({
+        mensaje: 'Back end API funcionando correctamente'
+    });
+});
+
+// Iniciar servidor
+app.listen(PORT, () => {
+    console.log(`Servidor iniciado en ${PORT}`);
 });

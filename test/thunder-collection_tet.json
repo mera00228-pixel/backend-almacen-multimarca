@@ -1,0 +1,33 @@
+{
+    "clientName": "Thunder Client",
+    "collectionName": "tet",
+    "collectionId": "48b130d5-9e85-4fe1-828c-880d21b49ca7",
+    "dateExported": "2026-07-14T15:10:11.598Z",
+    "version": "1.4",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "64f83dfe-545c-4717-adbc-375d97893200",
+            "colId": "48b130d5-9e85-4fe1-828c-880d21b49ca7",
+            "containerId": "",
+            "name": "http://localhost:3000/api/login",
+            "url": "http://localhost:3000/api/login",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2026-07-14T15:09:00.984Z",
+            "modified": "2026-07-14T15:09:00.984Z",
+            "headers": [],
+            "body": {
+                "type": "json",
+                "raw": [
+                    "{",
+                    "  \"usuario\": \"admin\",",
+                    "  \"contraseña\": \"1234\"",
+                    "}"
+                ],
+                "form": []
+            }
+        }
+    ],
+    "ref": "g3YASnOWetKsw7uO8MCJkVdqWvdwn9wzTPp53d0a49tgnrwvssFA_RXHH9MdlNzwAlR4NecErUCMOo4o2qAitg"
+}
