@@ -1,12 +1,11 @@
 import jwt from 'jsonwebtoken';
-
-const SECRET = 'mi_clave_secreta_123';
+import { JWT_SECRET } from '../config/env.js';
 
 export const verificarToken = (req, res, next) => {
 
     const authHeader = req.headers.authorization;
 
-    if (!authHeader) {
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
 
         return res.status(401).json({
             error: 'Token no proporcionado'
@@ -18,7 +17,7 @@ export const verificarToken = (req, res, next) => {
 
     try {
 
-        const decoded = jwt.verify(token, SECRET);
+        const decoded = jwt.verify(token, JWT_SECRET);
 
         req.usuario = decoded;
 

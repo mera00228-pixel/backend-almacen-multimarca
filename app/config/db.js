@@ -1,13 +1,16 @@
 import mysql from 'mysql2/promise';
+import { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME, DB_SSL } from './env.js';
 
 const pool = mysql.createPool({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'almacen', // Cambia este nombre si tu BD tiene otro nombre
+  host: DB_HOST,
+  port: DB_PORT,
+  user: DB_USER,
+  password: DB_PASSWORD,
+  database: DB_NAME,
   waitForConnections: true,
   connectionLimit: 10,
-  queueLimit: 0
+  queueLimit: 0,
+  ...(DB_SSL ? { ssl: { rejectUnauthorized: false } } : {})
 });
 
 export default pool;
