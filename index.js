@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
-import { PORT, CLIENT_URL } from './app/config/env.js';
+import { PORT, CLIENT_URL, diagnosticoEntorno } from './app/config/env.js';
 import pool from './app/config/db.js';
 import routeProducto from './app/routes/routes.producto.js';
 import routeAuth from './app/routes/routes.auth.js';
@@ -39,14 +39,28 @@ const authLimiter = rateLimit({
 app.use('/api', authLimiter, routeAuth);
 app.use('/api', routeProducto);
 
-// Health check (útil para Railway/Render y monitoreo)
-app.get('/health', async (req, res) => {
+const comprobarBD = async () => {
     try {
-        await pool.query('SELECT 1');
-        res.json({ status: 'ok', db: 'up' });
+        await Promise.race([
+            pool.query('SELECT 1'),
+            new Promise((_, rechazar) => setTimeout(() => rechazar(new Error('timeout')), 2000))
+        ]);
+        return true;
     } catch {
-        res.status(503).json({ status: 'error', db: 'down' });
+        return false;
     }
+};
+
+// Liveness: responde 200 SIEMPRE que el proceso esté vivo.
+// Este es el endpoint que Railway usa como healthcheck (no debe depender de la BD).
+app.get('/health', (req, res) => {
+    res.json({ status: 'ok', uptime: process.uptime() });
+});
+
+// Readiness: comprueba la conexión a la BD (para monitoreo, no lo usa Railway)
+app.get('/health/ready', async (req, res) => {
+    const db = await comprobarBD();
+    res.status(db ? 200 : 503).json({ status: db ? 'ok' : 'error', db: db ? 'up' : 'down' });
 });
 
 // Ruta de prueba
@@ -69,4 +83,5 @@ app.use((err, req, res, next) => {
 
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);
+    console.log('Configuración detectada:', JSON.stringify(diagnosticoEntorno()));
 });
