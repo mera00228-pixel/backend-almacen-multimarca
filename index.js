@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
-import { PORT, CLIENT_URL, diagnosticoEntorno } from './app/config/env.js';
+import { PORT, CLIENT_URL } from './app/config/env.js';
 import pool from './app/config/db.js';
 import routeProducto from './app/routes/routes.producto.js';
 import routeAuth from './app/routes/routes.auth.js';
@@ -81,7 +81,20 @@ app.use((err, req, res, next) => {
     res.status(500).json({ error: 'Error interno del servidor' });
 });
 
+// Resumen de configuración (solo variables de entorno, sin depender de exports externos)
+const resumenConfig = () => ({
+    PORT,
+    CLIENT_URL,
+    fuenteConexion: process.env.DATABASE_URL
+        ? 'DATABASE_URL'
+        : (process.env.MYSQL_URL ? 'MYSQL_URL' : 'variables individuales (DB_*)'),
+    DB_HOST: process.env.DB_HOST || process.env.MYSQLHOST || '(localhost)',
+    DB_NAME: process.env.DB_NAME || process.env.MYSQLDATABASE || process.env.MYSQL_DATABASE || '(almacen_multimarca)',
+    DB_SSL: process.env.DB_SSL || 'false',
+    JWT_SECRET: process.env.JWT_SECRET ? 'definido' : 'FALTANTE'
+});
+
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Servidor corriendo en el puerto ${PORT}`);
-    console.log('Configuración detectada:', JSON.stringify(diagnosticoEntorno()));
+    console.log('Configuración detectada:', JSON.stringify(resumenConfig()));
 });
