@@ -39,11 +39,30 @@ export const DB_NAME = desdeUrl?.database ?? pick('DB_NAME', 'MYSQLDATABASE', 'M
 // Activa SSL para MySQL gestionado en la nube solo si se indica (DB_SSL=true)
 export const DB_SSL = String(process.env.DB_SSL || 'false').toLowerCase() === 'true';
 
-export const JWT_SECRET = process.env.JWT_SECRET;
+// .trim() evita que un valor con solo espacios cuente como definido
+export const JWT_SECRET = (process.env.JWT_SECRET || '').trim();
 
 const requeridasFaltantes = [];
 if (!JWT_SECRET) requeridasFaltantes.push('JWT_SECRET');
 
 if (requeridasFaltantes.length > 0) {
-    throw new Error(`Faltan variables de entorno: ${requeridasFaltantes.join(', ')}`);
+    throw new Error(
+        `Faltan variables de entorno: ${requeridasFaltantes.join(', ')}. ` +
+        'Defínelas en el panel de Railway (servicio API → Variables) y vuelve a desplegar.'
+    );
 }
+
+// Diagnóstico de arranque (sin exponer secretos ni contraseñas)
+export const diagnosticoEntorno = () => ({
+    PORT,
+    CLIENT_URL,
+    fuenteConexion: urlConexion
+        ? (process.env.DATABASE_URL ? 'DATABASE_URL' : 'MYSQL_URL')
+        : 'variables individuales (DB_*)',
+    DB_HOST,
+    DB_PORT,
+    DB_USER,
+    DB_NAME,
+    DB_SSL,
+    JWT_SECRET: JWT_SECRET ? 'definido' : 'FALTANTE'
+});

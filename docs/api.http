@@ -1,0 +1,107 @@
+###############################################################################
+# Almacén Multimarca API - Cliente REST (extensión "REST Client" de VS Code)
+#
+# Cómo usar:
+#   1. Instala la extensión "REST Client" (humao.rest-client).
+#   2. Ejecuta primero la petición "Login" (tiene nombre: login).
+#   3. Las peticiones protegidas reutilizan el JWT mediante
+#      Authorization: Bearer {{login.response.body.$.token}}
+#      No se usa JavaScript de cliente, así el cuerpo JSON queda limpio.
+#   4. Ajusta @productoId para las rutas que llevan id.
+#
+# Para Railway: cambia @baseUrl por la URL de tu servicio.
+###############################################################################
+
+@baseUrl = https://backend-almacen-multimarca-production-b0d5.up.railway.app
+@usuario = admin
+@contraseña = 1234
+@productoId = 1
+
+###############################################################################
+# SALUD
+###############################################################################
+
+### Health (liveness) - responde 200 si el proceso esta vivo (no usa la BD)
+GET {{baseUrl}}/health
+
+### Health (readiness) - 200 si la BD responde, 503 si esta caida
+GET {{baseUrl}}/health/ready
+
+
+###############################################################################
+# AUTENTICACIÓN
+###############################################################################
+
+### Login - el token queda disponible en {{login.response.body.$.token}}
+# @name login
+POST {{baseUrl}}/api/login
+Content-Type: application/json
+
+{
+  "usuario": "{{usuario}}",
+  "contraseña": "{{contraseña}}"
+}
+
+### Register - crea un usuario (contraseña con al menos 6 caracteres)
+POST {{baseUrl}}/api/register
+Content-Type: application/json
+
+{
+  "usuario": "nuevo_usuario",
+  "contraseña": "secreto123"
+}
+
+
+###############################################################################
+# PRODUCTOS (requieren Authorization: Bearer {{login.response.body.$.token}})
+###############################################################################
+
+### Listar productos (id DESC)
+GET {{baseUrl}}/api/productos
+Authorization: Bearer {{login.response.body.$.token}}
+
+### Obtener producto por id
+GET {{baseUrl}}/api/productos/{{productoId}}
+Authorization: Bearer {{login.response.body.$.token}}
+
+### Crear producto
+POST {{baseUrl}}/api/productos
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.$.token}}
+
+{
+  "codigo_barras": "7501234567890",
+  "nombre": "Producto de prueba",
+  "descripcion": "Creado desde REST Client",
+  "imagen_url": "https://cdn.ejemplo.com/fotos/producto.jpg",
+  "precio_compra": 10.5,
+  "precio_venta": 15.99,
+  "stock": 20,
+  "stock_minimo": 5,
+  "marca_id": 1,
+  "categoria_id": 1,
+  "estado": 1
+}
+
+### Actualizar producto (ajusta @productoId al id que quieras actualizar)
+PUT {{baseUrl}}/api/productos/{{productoId}}
+Content-Type: application/json
+Authorization: Bearer {{login.response.body.$.token}}
+
+{
+  "codigo_barras": "7501234567890",
+  "nombre": "Producto actualizado",
+  "descripcion": "Actualizado desde REST Client",
+  "imagen_url": "https://cdn.ejemplo.com/fotos/producto-actualizado.jpg",
+  "precio_compra": 11,
+  "precio_venta": 16.5,
+  "stock": 25,
+  "stock_minimo": 5,
+  "marca_id": 1,
+  "categoria_id": 1,
+  "estado": 1
+}
+
+### Eliminar producto (ajusta @productoId al id que quieras eliminar)
+DELETE {{baseUrl}}/api/productos/{{productoId}}
+Authorization: Bearer {{login.response.body.$.token}}

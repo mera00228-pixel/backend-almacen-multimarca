@@ -20,6 +20,20 @@ const aIdONull = (valor) => {
     return aEntero(valor);
 };
 
+// Acepta vacío/null (campo opcional) o una URL http(s) válida de hasta 500 caracteres.
+const validarUrl = (valor) => {
+    if (valor === undefined || valor === null || valor === '') return true;
+    if (typeof valor !== 'string') return false;
+    const texto = valor.trim();
+    if (texto.length === 0 || texto.length > 500) return false;
+    try {
+        const url = new URL(texto);
+        return url.protocol === 'http:' || url.protocol === 'https:';
+    } catch {
+        return false;
+    }
+};
+
 const validarProducto = (body) => {
 
     const { codigo_barras, nombre, precio_compra, precio_venta, stock } = body;
@@ -48,6 +62,10 @@ const validarProducto = (body) => {
         return 'stock debe ser un entero mayor o igual a 0';
     }
 
+    if (!validarUrl(body.imagen_url)) {
+        return 'imagen_url debe ser una URL válida (http o https)';
+    }
+
     return null;
 
 };
@@ -56,6 +74,7 @@ const normalizar = (body) => ({
     codigo_barras: String(body.codigo_barras).trim(),
     nombre: String(body.nombre).trim(),
     descripcion: body.descripcion ? String(body.descripcion).trim() : null,
+    imagen_url: body.imagen_url ? String(body.imagen_url).trim() : null,
     precio_compra: aDecimal(body.precio_compra),
     precio_venta: aDecimal(body.precio_venta),
     stock: aEntero(body.stock),
@@ -142,9 +161,9 @@ export const crearProducto = async (req, res) => {
 
         const [result] = await pool.query(
             `INSERT INTO productos
-                (codigo_barras, nombre, descripcion, precio_compra, precio_venta, stock, stock_minimo, marca_id, categoria_id, estado)
-             VALUES (?,?,?,?,?,?,?,?,?,?)`,
-            [p.codigo_barras, p.nombre, p.descripcion, p.precio_compra, p.precio_venta, p.stock, p.stock_minimo, p.marca_id, p.categoria_id, p.estado]
+                (codigo_barras, nombre, descripcion, imagen_url, precio_compra, precio_venta, stock, stock_minimo, marca_id, categoria_id, estado)
+             VALUES (?,?,?,?,?,?,?,?,?,?,?)`,
+            [p.codigo_barras, p.nombre, p.descripcion, p.imagen_url, p.precio_compra, p.precio_venta, p.stock, p.stock_minimo, p.marca_id, p.categoria_id, p.estado]
         );
 
         res.status(201).json({ id: result.insertId, ...p });
@@ -177,10 +196,10 @@ export const actualizarProducto = async (req, res) => {
 
         const [result] = await pool.query(
             `UPDATE productos SET
-                codigo_barras = ?, nombre = ?, descripcion = ?, precio_compra = ?, precio_venta = ?,
+                codigo_barras = ?, nombre = ?, descripcion = ?, imagen_url = ?, precio_compra = ?, precio_venta = ?,
                 stock = ?, stock_minimo = ?, marca_id = ?, categoria_id = ?, estado = ?
              WHERE id = ?`,
-            [p.codigo_barras, p.nombre, p.descripcion, p.precio_compra, p.precio_venta, p.stock, p.stock_minimo, p.marca_id, p.categoria_id, p.estado, id]
+            [p.codigo_barras, p.nombre, p.descripcion, p.imagen_url, p.precio_compra, p.precio_venta, p.stock, p.stock_minimo, p.marca_id, p.categoria_id, p.estado, id]
         );
 
         if (result.affectedRows === 0) {

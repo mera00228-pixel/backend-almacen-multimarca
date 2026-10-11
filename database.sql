@@ -47,6 +47,7 @@ CREATE TABLE IF NOT EXISTS productos (
   codigo_barras VARCHAR(50) NOT NULL UNIQUE,
   nombre VARCHAR(150) NOT NULL,
   descripcion TEXT DEFAULT NULL,
+  imagen_url VARCHAR(500) DEFAULT NULL,
   precio_compra DECIMAL(10,2) NOT NULL,
   precio_venta DECIMAL(10,2) NOT NULL,
   stock INT NOT NULL DEFAULT 0,
