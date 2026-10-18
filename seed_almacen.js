@@ -28,21 +28,21 @@ const CATEGORIAS = [
 ];
 
 const PRODUCTOS = [
-    { codigo_barras: '750638100001', nombre: 'Nike Air Zoom Pegasus 41', descripcion: 'Zapatillas de running con amortiguación Air Zoom', precio_compra: 320.00, precio_venta: 549.00, stock: 24, stock_minimo: 6, marca: 'Nike', categoria: 'Calzado', estado: 1 },
-    { codigo_barras: '750638100002', nombre: 'Nike Camiseta Dri-Fit Legend', descripcion: 'Camiseta transpirable para entrenamiento intensivo', precio_compra: 45.00, precio_venta: 89.90, stock: 60, stock_minimo: 10, marca: 'Nike', categoria: 'Ropa', estado: 1 },
-    { codigo_barras: '750638100003', nombre: 'Nike Gorra AeroSwift', descripcion: 'Gorra deportiva ligera con ajuste trasero', precio_compra: 25.00, precio_venta: 49.90, stock: 4, stock_minimo: 8, marca: 'Nike', categoria: 'Accesorios', estado: 1 },
-    { codigo_barras: '750638200001', nombre: 'Adidas Ultraboost Light', descripcion: 'Tenis de running con amortiguación Boost', precio_compra: 380.00, precio_venta: 649.00, stock: 18, stock_minimo: 5, marca: 'Adidas', categoria: 'Calzado', estado: 1 },
-    { codigo_barras: '750638200002', nombre: 'Adidas Sudadera Tiro 23', descripcion: 'Sudadera con capucha para entrenamiento', precio_compra: 95.00, precio_venta: 179.00, stock: 30, stock_minimo: 6, marca: 'Adidas', categoria: 'Ropa', estado: 1 },
-    { codigo_barras: '750638200003', nombre: 'Adidas Mochila Classic 3', descripcion: 'Mochila deportiva de 3 compartimentos', precio_compra: 60.00, precio_venta: 119.00, stock: 2, stock_minimo: 5, marca: 'Adidas', categoria: 'Accesorios', estado: 1 },
-    { codigo_barras: '750638300001', nombre: 'Puma Velocity Nitro 3', descripcion: 'Zapatillas de competición con espuma NITRO', precio_compra: 290.00, precio_venta: 499.00, stock: 15, stock_minimo: 5, marca: 'Puma', categoria: 'Calzado', estado: 1 },
-    { codigo_barras: '750638300002', nombre: 'Puma Chaqueta Softshell', descripcion: 'Chaqueta impermeable para actividad al aire libre', precio_compra: 110.00, precio_venta: 199.00, stock: 0, stock_minimo: 4, marca: 'Puma', categoria: 'Ropa', estado: 0 },
-    { codigo_barras: '750638400001', nombre: 'Sony WH-1000XM5', descripcion: 'Audífonos de diadema con cancelación de ruido', precio_compra: 780.00, precio_venta: 1199.00, stock: 12, stock_minimo: 3, marca: 'Sony', categoria: 'Electrónica', estado: 1 },
-    { codigo_barras: '750638400002', nombre: 'Sony Barra de Sonido HT-S400', descripcion: 'Barra de sonido 2.1 con subwoofer inalámbrico', precio_compra: 420.00, precio_venta: 699.00, stock: 7, stock_minimo: 2, marca: 'Sony', categoria: 'Electrónica', estado: 1 },
-    { codigo_barras: '750638500001', nombre: 'Samsung Galaxy A55 5G 256GB', descripcion: 'Smartphone con pantalla Super AMOLED de 6.6 pulgadas', precio_compra: 950.00, precio_venta: 1499.00, stock: 20, stock_minimo: 4, marca: 'Samsung', categoria: 'Electrónica', estado: 1 },
-    { codigo_barras: '750638500002', nombre: 'Samsung Smart TV Crystal UHD 55"', descripcion: 'Televisor 4K inteligente con tecnología PurColor', precio_compra: 1100.00, precio_venta: 1599.00, stock: 6, stock_minimo: 2, marca: 'Samsung', categoria: 'Electrónica', estado: 1 },
-    { codigo_barras: '750638500003', nombre: 'Samsung Microondas Bespoke 28L', descripcion: 'Microondas con grill y diseño modular', precio_compra: 280.00, precio_venta: 449.00, stock: 9, stock_minimo: 3, marca: 'Samsung', categoria: 'Línea Blanca', estado: 1 },
-    { codigo_barras: '750638600001', nombre: 'Apple AirPods Pro 2', descripcion: 'Audífonos inalámbricos con cancelación activa de ruido', precio_compra: 620.00, precio_venta: 899.00, stock: 14, stock_minimo: 4, marca: 'Apple', categoria: 'Electrónica', estado: 1 },
-    { codigo_barras: '750638700001', nombre: "Levi's 501 Original", descripcion: 'Jeans de corte recto en mezclilla clásica', precio_compra: 120.00, precio_venta: 229.00, stock: 35, stock_minimo: 8, marca: 'Levis', categoria: 'Ropa', estado: 1 }
+    { codigo_barras: '750638100001', nombre: 'Nike Air Zoom Pegasus 41', descripcion: 'Zapatillas de running con amortiguación Air Zoom', imagen: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=400&h=400&q=80', precio_compra: 320.00, precio_venta: 549.00, stock: 24, stock_minimo: 6, marca: 'Nike', categoria: 'Calzado', estado: 1 },
+    { codigo_barras: '750638100002', nombre: 'Nike Camiseta Dri-Fit Legend', descripcion: 'Camiseta transpirable para entrenamiento intensivo', imagen: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=400&h=400&q=80', precio_compra: 45.00, precio_venta: 89.90, stock: 60, stock_minimo: 10, marca: 'Nike', categoria: 'Ropa', estado: 1 },
+    { codigo_barras: '750638100003', nombre: 'Nike Gorra AeroSwift', descripcion: 'Gorra deportiva ligera con ajuste trasero', imagen: 'https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=400&h=400&q=80', precio_compra: 25.00, precio_venta: 49.90, stock: 4, stock_minimo: 8, marca: 'Nike', categoria: 'Accesorios', estado: 1 },
+    { codigo_barras: '750638200001', nombre: 'Adidas Ultraboost Light', descripcion: 'Tenis de running con amortiguación Boost', imagen: 'https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&w=400&h=400&q=80', precio_compra: 380.00, precio_venta: 649.00, stock: 18, stock_minimo: 5, marca: 'Adidas', categoria: 'Calzado', estado: 1 },
+    { codigo_barras: '750638200002', nombre: 'Adidas Sudadera Tiro 23', descripcion: 'Sudadera con capucha para entrenamiento', imagen: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=400&h=400&q=80', precio_compra: 95.00, precio_venta: 179.00, stock: 30, stock_minimo: 6, marca: 'Adidas', categoria: 'Ropa', estado: 1 },
+    { codigo_barras: '750638200003', nombre: 'Adidas Mochila Classic 3', descripcion: 'Mochila deportiva de 3 compartimentos', imagen: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=400&h=400&q=80', precio_compra: 60.00, precio_venta: 119.00, stock: 2, stock_minimo: 5, marca: 'Adidas', categoria: 'Accesorios', estado: 1 },
+    { codigo_barras: '750638300001', nombre: 'Puma Velocity Nitro 3', descripcion: 'Zapatillas de competición con espuma NITRO', imagen: 'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=400&h=400&q=80', precio_compra: 290.00, precio_venta: 499.00, stock: 15, stock_minimo: 5, marca: 'Puma', categoria: 'Calzado', estado: 1 },
+    { codigo_barras: '750638300002', nombre: 'Puma Chaqueta Softshell', descripcion: 'Chaqueta impermeable para actividad al aire libre', imagen: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?auto=format&fit=crop&w=400&h=400&q=80', precio_compra: 110.00, precio_venta: 199.00, stock: 0, stock_minimo: 4, marca: 'Puma', categoria: 'Ropa', estado: 0 },
+    { codigo_barras: '750638400001', nombre: 'Sony WH-1000XM5', descripcion: 'Audífonos de diadema con cancelación de ruido', imagen: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=400&h=400&q=80', precio_compra: 780.00, precio_venta: 1199.00, stock: 12, stock_minimo: 3, marca: 'Sony', categoria: 'Electrónica', estado: 1 },
+    { codigo_barras: '750638400002', nombre: 'Sony Barra de Sonido HT-S400', descripcion: 'Barra de sonido 2.1 con subwoofer inalámbrico', imagen: 'https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=400&h=400&q=80', precio_compra: 420.00, precio_venta: 699.00, stock: 7, stock_minimo: 2, marca: 'Sony', categoria: 'Electrónica', estado: 1 },
+    { codigo_barras: '750638500001', nombre: 'Samsung Galaxy A55 5G 256GB', descripcion: 'Smartphone con pantalla Super AMOLED de 6.6 pulgadas', imagen: 'https://images.unsplash.com/photo-1610945265064-0e34e5519bbf?auto=format&fit=crop&w=400&h=400&q=80', precio_compra: 950.00, precio_venta: 1499.00, stock: 20, stock_minimo: 4, marca: 'Samsung', categoria: 'Electrónica', estado: 1 },
+    { codigo_barras: '750638500002', nombre: 'Samsung Smart TV Crystal UHD 55"', descripcion: 'Televisor 4K inteligente con tecnología PurColor', imagen: 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?auto=format&fit=crop&w=400&h=400&q=80', precio_compra: 1100.00, precio_venta: 1599.00, stock: 6, stock_minimo: 2, marca: 'Samsung', categoria: 'Electrónica', estado: 1 },
+    { codigo_barras: '750638500003', nombre: 'Samsung Microondas Bespoke 28L', descripcion: 'Microondas con grill y diseño modular', imagen: 'https://images.unsplash.com/photo-1585659722983-3a675dabf23d?auto=format&fit=crop&w=400&h=400&q=80', precio_compra: 280.00, precio_venta: 449.00, stock: 9, stock_minimo: 3, marca: 'Samsung', categoria: 'Línea Blanca', estado: 1 },
+    { codigo_barras: '750638600001', nombre: 'Apple AirPods Pro 2', descripcion: 'Audífonos inalámbricos con cancelación activa de ruido', imagen: 'https://images.unsplash.com/photo-1600294037681-c80b4cb5b434?auto=format&fit=crop&w=400&h=400&q=80', precio_compra: 620.00, precio_venta: 899.00, stock: 14, stock_minimo: 4, marca: 'Apple', categoria: 'Electrónica', estado: 1 },
+    { codigo_barras: '750638700001', nombre: "Levi's 501 Original", descripcion: 'Jeans de corte recto en mezclilla clásica', imagen: 'https://images.unsplash.com/photo-1542272604-787c3835535d?auto=format&fit=crop&w=400&h=400&q=80', precio_compra: 120.00, precio_venta: 229.00, stock: 35, stock_minimo: 8, marca: 'Levis', categoria: 'Ropa', estado: 1 }
 ];
 
 const DDL = [
@@ -148,11 +148,12 @@ async function main() {
             if (categoriaId === null) throw new Error(`Categoría no encontrada: ${p.categoria}`);
             await conn.query(
                 `INSERT INTO productos
-                    (codigo_barras, nombre, descripcion, precio_compra, precio_venta, stock, stock_minimo, marca_id, categoria_id, estado)
-                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    (codigo_barras, nombre, descripcion, imagen_url, precio_compra, precio_venta, stock, stock_minimo, marca_id, categoria_id, estado)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                  ON DUPLICATE KEY UPDATE
                     nombre = VALUES(nombre),
                     descripcion = VALUES(descripcion),
+                    imagen_url = VALUES(imagen_url),
                     precio_compra = VALUES(precio_compra),
                     precio_venta = VALUES(precio_venta),
                     stock = VALUES(stock),
@@ -161,7 +162,7 @@ async function main() {
                     categoria_id = VALUES(categoria_id),
                     estado = VALUES(estado)`,
                 [
-                    p.codigo_barras, p.nombre, p.descripcion,
+                    p.codigo_barras, p.nombre, p.descripcion, p.imagen ?? null,
                     p.precio_compra, p.precio_venta,
                     p.stock, p.stock_minimo,
                     marcaId, categoriaId, p.estado
