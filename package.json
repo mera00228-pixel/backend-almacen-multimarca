@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "node index.js",
     "start": "node index.js",
-    "crear-admin": "node scripts/crear-admin.js"
+    "crear-admin": "node scripts/crear-admin.js",
+    "seed": "node seed_almacen.js"
   },
   "engines": {
     "node": ">=18"
