@@ -6,6 +6,7 @@ import { PORT, CLIENT_URL } from './app/config/env.js';
 import pool from './app/config/db.js';
 import routeProducto from './app/routes/routes.producto.js';
 import routeAuth from './app/routes/routes.auth.js';
+import routeMovimiento from './app/routes/routes.movimiento.js';
 
 const app = express();
 
@@ -38,6 +39,7 @@ const authLimiter = rateLimit({
 
 app.use('/api', authLimiter, routeAuth);
 app.use('/api', routeProducto);
+app.use('/api', routeMovimiento);
 
 const comprobarBD = async () => {
     try {
@@ -143,6 +145,16 @@ const SENTENCIAS_INICIALIZACION = [
         actualizado_en TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         CONSTRAINT fk_productos_marca FOREIGN KEY (marca_id) REFERENCES marcas(id) ON DELETE SET NULL,
         CONSTRAINT fk_productos_categoria FOREIGN KEY (categoria_id) REFERENCES categorias(id) ON DELETE SET NULL
+    )`,
+    `CREATE TABLE IF NOT EXISTS movimientos (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        producto_id INT NOT NULL,
+        tipo ENUM('entrada','salida') NOT NULL,
+        cantidad INT NOT NULL,
+        stock_despues INT NOT NULL,
+        motivo VARCHAR(200) DEFAULT NULL,
+        creado_en TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        CONSTRAINT fk_movimientos_producto FOREIGN KEY (producto_id) REFERENCES productos(id) ON DELETE CASCADE
     )`,
     // Usuario por defecto admin/1234. Nunca sobreescribe un usuario existente.
     `INSERT INTO usuarios (usuario, password_hash)
