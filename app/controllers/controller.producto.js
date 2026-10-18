@@ -84,6 +84,13 @@ const normalizar = (body) => ({
     estado: body.estado === undefined || body.estado === null || body.estado === '' ? 1 : (Number(body.estado) ? 1 : 0)
 });
 
+const SELECT_CON_NOMBRES = `
+    SELECT p.*, m.nombre AS marca_nombre, c.nombre AS categoria_nombre
+    FROM productos p
+    LEFT JOIN marcas m ON m.id = p.marca_id
+    LEFT JOIN categorias c ON c.id = p.categoria_id
+`;
+
 const responderError = (res, error) => {
 
     console.error('Error en productos:', error);
@@ -105,7 +112,7 @@ export const listarProductos = async (req, res) => {
     try {
 
         const [rows] = await pool.query(
-            'SELECT * FROM productos ORDER BY id DESC'
+            `${SELECT_CON_NOMBRES} ORDER BY p.id DESC`
         );
 
         res.json(rows);
@@ -129,7 +136,7 @@ export const obtenerProducto = async (req, res) => {
     try {
 
         const [rows] = await pool.query(
-            'SELECT * FROM productos WHERE id = ?',
+            `${SELECT_CON_NOMBRES} WHERE p.id = ?`,
             [id]
         );
 
@@ -166,7 +173,9 @@ export const crearProducto = async (req, res) => {
             [p.codigo_barras, p.nombre, p.descripcion, p.imagen_url, p.precio_compra, p.precio_venta, p.stock, p.stock_minimo, p.marca_id, p.categoria_id, p.estado]
         );
 
-        res.status(201).json({ id: result.insertId, ...p });
+        const [filas] = await pool.query(`${SELECT_CON_NOMBRES} WHERE p.id = ?`, [result.insertId]);
+
+        res.status(201).json(filas[0] ?? { id: result.insertId, ...p });
 
     } catch (error) {
 
@@ -206,7 +215,9 @@ export const actualizarProducto = async (req, res) => {
             return res.status(404).json({ error: 'Producto no encontrado' });
         }
 
-        res.json({ id, ...p });
+        const [filas] = await pool.query(`${SELECT_CON_NOMBRES} WHERE p.id = ?`, [id]);
+
+        res.json(filas[0] ?? { id, ...p });
 
     } catch (error) {
 
